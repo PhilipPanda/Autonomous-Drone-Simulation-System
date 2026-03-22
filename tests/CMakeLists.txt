@@ -1,0 +1,12 @@
+function(adsim_add_test name source)
+    add_executable(${name} ${source})
+    target_link_libraries(${name} PRIVATE adsim_core)
+    adsim_set_compile_options(${name})
+    add_test(NAME ${name} COMMAND ${name})
+endfunction()
+
+adsim_add_test(test_pid       test_pid.cpp)
+adsim_add_test(test_waypoint  test_waypoint.cpp)
+adsim_add_test(test_estimator test_estimator.cpp)
+adsim_add_test(test_failsafe  test_failsafe.cpp)
+adsim_add_test(test_config    test_config.cpp)
