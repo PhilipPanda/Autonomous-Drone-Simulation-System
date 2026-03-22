@@ -1,0 +1,127 @@
+.root {
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: #d0d0d0;
+    -fx-base: #1a1a1a;
+    -fx-control-inner-background: #242424;
+    -fx-accent: #4a7fa0;
+    -fx-focus-color: #4a7fa0;
+    -fx-faint-focus-color: transparent;
+}
+
+.label {
+    -fx-text-fill: #d0d0d0;
+}
+
+.tab-pane {
+    -fx-background-color: #1a1a1a;
+    -fx-tab-min-height: 26px;
+}
+
+.tab-pane .tab-header-area {
+    -fx-background-color: #141414;
+    -fx-padding: 0;
+}
+
+.tab-pane .tab-header-background {
+    -fx-background-color: #141414;
+}
+
+.tab {
+    -fx-background-color: #1e1e1e;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 4 12 4 12;
+}
+
+.tab:selected {
+    -fx-background-color: #242424;
+}
+
+.tab .tab-label {
+    -fx-text-fill: #909090;
+    -fx-font-size: 12px;
+}
+
+.tab:selected .tab-label {
+    -fx-text-fill: #d0d0d0;
+}
+
+.tab-pane .tab-content-area {
+    -fx-background-color: #1a1a1a;
+    -fx-border-width: 0;
+}
+
+.split-pane {
+    -fx-background-color: #1a1a1a;
+    -fx-padding: 0;
+}
+
+.split-pane-divider {
+    -fx-background-color: #2a2a2a;
+    -fx-padding: 0 1 0 1;
+}
+
+.scroll-pane {
+    -fx-background-color: #1a1a1a;
+    -fx-background: #1a1a1a;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: #1a1a1a;
+}
+
+.scroll-bar {
+    -fx-background-color: #1e1e1e;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #3a3a3a;
+    -fx-background-radius: 2;
+}
+
+.scroll-bar .track {
+    -fx-background-color: #1e1e1e;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: #1e1e1e;
+}
+
+.telem-section {
+    -fx-font-weight: bold;
+    -fx-text-fill: #909090;
+    -fx-padding: 8 0 2 0;
+    -fx-font-size: 11px;
+}
+
+.telem-label {
+    -fx-text-fill: #707070;
+    -fx-font-size: 12px;
+}
+
+.telem-value {
+    -fx-text-fill: #d0d0d0;
+    -fx-font-size: 12px;
+    -fx-font-family: "Monospace";
+}
+
+.status-bar {
+    -fx-background-color: #161616;
+    -fx-padding: 4 8 4 8;
+    -fx-border-color: #2a2a2a;
+    -fx-border-width: 1 0 0 0;
+    -fx-font-size: 11px;
+}
+
+.connected-indicator {
+    -fx-text-fill: #4a9040;
+}
+
+.disconnected-indicator {
+    -fx-text-fill: #904040;
+}
+
+.connecting-indicator {
+    -fx-text-fill: #907040;
+}
