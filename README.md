@@ -39,20 +39,35 @@ Provides a 2D top-down view and a 3D orbital view with live telemetry. Reconnect
 
 ## Architecture
 
+The simulation is structured as a static library (`adsim_core`) consumed by a CLI executable (`adsim`). Each module has a clear boundary and communicates through value types with no shared mutable state.
+
 ```
 adsim_core
-├── math        — Vec3, Quaternion, PID
-├── dynamics    — rigid-body flight model
-├── control     — cascaded PID (position → attitude → rate)
-├── sensors     — IMU with noise, bias, and dropout
-├── estimation  — complementary filter
-├── navigation  — waypoint sequencer
-├── failsafe    — sensor loss, attitude limits, bounds violation
-├── simulation  — fixed-timestep loop
-├── logging     — CSV output
-├── config      — INI parser
-└── network     — TCP telemetry server (line-delimited JSON, 30 Hz)
+├── math        — Vec3, Quaternion, and PID controller primitives
+├── dynamics    — Rigid-body flight model: thrust, linear/angular drag,
+│                 gyroscopic coupling, semi-implicit Euler integration
+├── control     — Cascaded PID: position loops → desired attitude angles
+│                 → angular rate setpoints → body torques
+├── sensors     — IMU with Gaussian noise, random-walk bias instability,
+│                 and configurable probabilistic dropout events
+├── estimation  — Complementary filter fusing gyroscope integration with
+│                 accelerometer gravity direction; slow gyro bias correction
+├── navigation  — Sequential waypoint tracker with per-waypoint acceptance
+│                 radii; exposes current target as a ControlTarget
+├── failsafe    — Three independent monitors: sustained IMU dropout →
+│                 controlled descent; attitude limit violation → hover hold;
+│                 position/altitude out of bounds → abort (sticky, terminal)
+├── simulation  — Fixed-timestep orchestration loop; owns all subsystems;
+│                 binds INI config to typed structs at startup
+├── logging     — Decimated CSV output: full state, IMU readings, estimated
+│                 attitude, failsafe status, and active waypoint index
+├── config      — Zero-dependency INI parser with typed getters and defaults
+└── network     — TCP telemetry server (PIMPL, cross-platform Winsock/POSIX);
+                  background accept thread; 30 Hz rate-limited line-delimited
+                  JSON broadcast to a single connected client
 ```
+
+**ui-java** is a standalone JavaFX application that connects over TCP, parses the JSON stream with Jackson, and renders a 2D top-down canvas and a 3D SubScene at 60 fps using an `AnimationTimer`. The 3D view applies the full quaternion orientation as a JavaFX `Affine` transform on the drone model.
 
 ## Configuration
 
