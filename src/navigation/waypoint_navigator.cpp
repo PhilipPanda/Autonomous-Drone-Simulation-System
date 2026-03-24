@@ -33,6 +33,10 @@ ControlTarget WaypointNavigator::current_target() const {
 }
 
 const Waypoint& WaypointNavigator::current_waypoint() const {
+    if (waypoints_.empty()) {
+        static const Waypoint empty{};
+        return empty;
+    }
     if (mission_complete()) return waypoints_.back();
     return waypoints_[current_];
 }

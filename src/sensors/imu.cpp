@@ -35,7 +35,7 @@ ImuReading Imu::sample(const DroneState& state, double dt) {
     if (params_.dropout_probability > 0.0) {
         std::uniform_real_distribution<double> uniform(0.0, 1.0);
         if (uniform(rng_) < params_.dropout_probability * dt) {
-            dropout_remaining_ = 0.1 + unit_normal_(rng_) * 0.05;
+            dropout_remaining_ = std::max(0.05, 0.1 + unit_normal_(rng_) * 0.05);
             reading.valid = false;
             return reading;
         }

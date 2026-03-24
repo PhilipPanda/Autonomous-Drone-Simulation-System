@@ -11,6 +11,10 @@ double PidController::update(double error, double dt) {
     if (dt <= 0.0) return 0.0;
 
     integral_ += error * dt;
+    if (gains_.ki != 0.0) {
+        double max_integral = (output_max_ - output_min_) / gains_.ki;
+        integral_ = std::clamp(integral_, -max_integral, max_integral);
+    }
 
     double derivative = 0.0;
     if (!first_update_) {
